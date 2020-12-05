@@ -50,16 +50,16 @@ branch  1 taken 1
         -:   40: * is over, no more pieces can be placed so attempting to place a piece
         -:   41: * should neither change the board nor change whose turn it is.
         -:   42:**/ 
-function _ZN14TicTacToeBoard10placePieceEii called 5 returned 100% blocks executed 46%
+function _ZN14TicTacToeBoard10placePieceEii called 5 returned 100% blocks executed 62%
         5:   43:Piece TicTacToeBoard::placePiece(int row, int column)
         -:   44:{
-        5:   45:  if(row == 3 && column == 3 && board[row][column]!=Blank)
-branch  0 taken 0 (fallthrough)
-branch  1 taken 5
-branch  2 never executed
-branch  3 never executed
-branch  4 never executed
-branch  5 never executed
+        5:   45:  if(row == 2 && column == 2 && board[row][column]!=Blank)
+branch  0 taken 1 (fallthrough)
+branch  1 taken 4
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0
+branch  4 taken 0 (fallthrough)
+branch  5 taken 1
         -:   46:  {
     #####:   47:     getWinner();
 call    0 never executed
@@ -98,7 +98,7 @@ call    0 never executed
 function _ZN14TicTacToeBoard8getPieceEii called 6 returned 100% blocks executed 86%
         6:   72:Piece TicTacToeBoard::getPiece(int row, int column)
         -:   73:{
-        6:   74:  if(row>3 || column>3)
+        6:   74:  if(row>2 || column>2)
 branch  0 taken 5 (fallthrough)
 branch  1 taken 1
 branch  2 taken 0 (fallthrough)
