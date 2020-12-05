@@ -1,0 +1,213 @@
+        -:    0:Source:TicTacToeBoard.cpp
+        -:    0:Programs:2
+        -:    1:#include "TicTacToeBoard.h"
+        -:    2:/**
+        -:    3: * Class for representing a 3x3 Tic-Tac-Toe game board, using the Piece enum
+        -:    4: * to represent the spaces on the board.
+        -:    5:**/
+        -:    6:
+        -:    7://Constructor sets an empty board and specifies it is X's turn first
+function _ZN14TicTacToeBoardC2Ev called 5 returned 100% blocks executed 100%
+        5:    8:TicTacToeBoard::TicTacToeBoard()
+        -:    9:{
+        5:   10:  turn = X;
+       20:   11:  for(int i=0; i<BOARDSIZE; i++)
+branch  0 taken 15 (fallthrough)
+branch  1 taken 5
+       60:   12:    for(int j=0; j<BOARDSIZE; j++)
+branch  0 taken 45 (fallthrough)
+branch  1 taken 15
+       45:   13:      board[i][j] = Blank;
+        5:   14:}
+        -:   15:
+        -:   16:/**
+        -:   17: * Switches turn member variable to represent whether it's X's or O's turn
+        -:   18: * and returns whose turn it is
+        -:   19:**/
+function _ZN14TicTacToeBoard10toggleTurnEv called 6 returned 100% blocks executed 100%
+        6:   20:Piece TicTacToeBoard::toggleTurn()
+        -:   21:{
+        6:   22:  if(turn == X)
+branch  0 taken 5 (fallthrough)
+branch  1 taken 1
+        -:   23:  {;
+        5:   24:    turn = O;
+        5:   25:    return turn;
+        -:   26:  }
+        -:   27:  else
+        -:   28:  {
+        1:   29:    turn = X;
+        1:   30:    return turn;
+        -:   31:  }
+        -:   32:} 
+        -:   33:
+        -:   34:/**
+        -:   35: * Places the piece of the current turn on the board, returns what
+        -:   36: * piece is placed, and toggles which Piece's turn it is. placePiece does 
+        -:   37: * NOT allow to place a piece in a location where there is already a piece.
+        -:   38: * In that case, placePiece just returns what is already at that location. 
+        -:   39: * Out of bounds coordinates return the Piece Invalid value. When the game
+        -:   40: * is over, no more pieces can be placed so attempting to place a piece
+        -:   41: * should neither change the board nor change whose turn it is.
+        -:   42:**/ 
+function _ZN14TicTacToeBoard10placePieceEii called 5 returned 100% blocks executed 46%
+        5:   43:Piece TicTacToeBoard::placePiece(int row, int column)
+        -:   44:{
+        5:   45:  if(row == 3 && column == 3 && board[row][column]!=Blank)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+branch  2 never executed
+branch  3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:   46:  {
+    #####:   47:     getWinner();
+call    0 never executed
+        -:   48:  }
+        -:   49:
+        5:   50:  if(getPiece(row,column) == Blank)
+call    0 returned 5
+branch  1 taken 5 (fallthrough)
+branch  2 taken 0
+        -:   51:  {
+        5:   52:    board[row][column] = turn;
+        5:   53:    toggleTurn();
+call    0 returned 5
+        5:   54:    return board[row][column];
+        -:   55:  }
+        -:   56:
+    #####:   57:  else if (getPiece(row,column) == Invalid)
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   58:  {
+    #####:   59:    return Invalid;
+        -:   60:  }
+        -:   61:
+        -:   62:  else
+        -:   63:  {
+    #####:   64:    return getPiece(row,column);
+call    0 never executed
+        -:   65:  }
+        -:   66:}
+        -:   67:
+        -:   68:/**
+        -:   69: * Returns what piece is at the provided coordinates, or Blank if there
+        -:   70: * are no pieces there, or Invalid if the coordinates are out of bounds
+        -:   71:**/
+function _ZN14TicTacToeBoard8getPieceEii called 6 returned 100% blocks executed 86%
+        6:   72:Piece TicTacToeBoard::getPiece(int row, int column)
+        -:   73:{
+        6:   74:  if(row>3 || column>3)
+branch  0 taken 5 (fallthrough)
+branch  1 taken 1
+branch  2 taken 0 (fallthrough)
+branch  3 taken 5
+        -:   75:  {
+        1:   76:    return Invalid;
+        -:   77:  }
+        -:   78:
+        5:   79:  if(board[row][column]== Blank)
+branch  0 taken 5 (fallthrough)
+branch  1 taken 0
+        -:   80:  {
+        5:   81:    return Blank;
+        -:   82:  }
+        -:   83:
+        -:   84:  else
+        -:   85:  {
+    #####:   86:    return board[row][column];
+        -:   87:  }  
+        -:   88:}
+        -:   89:
+        -:   90:/**
+        -:   91: * Returns which Piece has won, if there is a winner, Invalid if the game
+        -:   92: * is not over, or Blank if the board is filled and no one has won.
+        -:   93:**/
+function _ZN14TicTacToeBoard9getWinnerEv called 2 returned 100% blocks executed 59%
+        2:   94:Piece TicTacToeBoard::getWinner()
+        -:   95:{
+        2:   96:  if(board[0][0]==board[1][1] && board[1][1]==board[2][2] && board[0][0]!= Blank)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 2
+branch  2 never executed
+branch  3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:   97:  {
+    #####:   98:    return board[0][0];
+        -:   99:  }
+        -:  100:
+        2:  101:  if(board[0][0]==board[0][1] && board[0][1]==board[0][2] && board[0][0]!= Blank)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 2
+branch  2 never executed
+branch  3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:  102:  {
+    #####:  103:    return board[0][0];
+        -:  104:  }
+        -:  105:
+        2:  106:  if(board[0][0]==board[1][0] && board[1][0]==board[2][0] && board[0][0]!= Blank)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 2
+branch  2 never executed
+branch  3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:  107:  {
+    #####:  108:    return board[0][0];
+        -:  109:  }
+        -:  110:  
+        2:  111:  if(board[0][2]==board[1][1] && board[1][1]==board[2][0] && board[0][2]!= Blank)
+branch  0 taken 1 (fallthrough)
+branch  1 taken 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0
+branch  4 taken 0 (fallthrough)
+branch  5 taken 1
+        -:  112:  {
+    #####:  113:    return board[0][2];
+        -:  114:  }
+        -:  115:
+        2:  116:  if(board[0][1]==board[1][1] && board[1][1]==board[2][1] && board[0][1]!= Blank)
+branch  0 taken 1 (fallthrough)
+branch  1 taken 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0
+branch  4 taken 0 (fallthrough)
+branch  5 taken 1
+        -:  117:  {
+    #####:  118:    return board[0][1];
+        -:  119:  }
+        -:  120:
+        2:  121:  if(board[1][0]==board[1][1] && board[1][1]==board[1][2] && board[1][0]!= Blank)
+branch  0 taken 1 (fallthrough)
+branch  1 taken 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0
+branch  4 taken 0 (fallthrough)
+branch  5 taken 1
+        -:  122:  {
+    #####:  123:    return board[1][0];
+        -:  124:  }
+        -:  125:
+        2:  126:  for(int i=0; i<BOARDSIZE; i++)
+branch  0 taken 2 (fallthrough)
+branch  1 taken 0
+        -:  127:  {
+        4:  128:    for(int j=0; j<BOARDSIZE; j++)
+branch  0 taken 4 (fallthrough)
+branch  1 taken 0
+        -:  129:    {
+        4:  130:      if(board[i][j] == Blank)
+branch  0 taken 2 (fallthrough)
+branch  1 taken 2
+        -:  131:      {
+        2:  132:        return Invalid;
+        -:  133:      }
+        -:  134:    }
+        -:  135:  }
+    #####:  136:  return Invalid;
+        -:  137:}

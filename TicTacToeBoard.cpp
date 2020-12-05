@@ -19,8 +19,17 @@ TicTacToeBoard::TicTacToeBoard()
 **/
 Piece TicTacToeBoard::toggleTurn()
 {
-  return Invalid;
-}
+  if(turn == X)
+  {;
+    turn = O;
+    return turn;
+  }
+  else
+  {
+    turn = X;
+    return turn;
+  }
+} 
 
 /**
  * Places the piece of the current turn on the board, returns what
@@ -33,7 +42,27 @@ Piece TicTacToeBoard::toggleTurn()
 **/ 
 Piece TicTacToeBoard::placePiece(int row, int column)
 {
-  return Invalid;
+  if(row == 3 && column == 3 && board[row][column]!=Blank)
+  {
+     getWinner();
+  }
+
+  if(getPiece(row,column) == Blank)
+  {
+    board[row][column] = turn;
+    toggleTurn();
+    return board[row][column];
+  }
+
+  else if (getPiece(row,column) == Invalid)
+  {
+    return Invalid;
+  }
+
+  else
+  {
+    return getPiece(row,column);
+  }
 }
 
 /**
@@ -42,7 +71,20 @@ Piece TicTacToeBoard::placePiece(int row, int column)
 **/
 Piece TicTacToeBoard::getPiece(int row, int column)
 {
-  return Invalid;
+  if(row>3 || column>3)
+  {
+    return Invalid;
+  }
+
+  if(board[row][column]== Blank)
+  {
+    return Blank;
+  }
+
+  else
+  {
+    return board[row][column];
+  }  
 }
 
 /**
@@ -51,5 +93,45 @@ Piece TicTacToeBoard::getPiece(int row, int column)
 **/
 Piece TicTacToeBoard::getWinner()
 {
+  if(board[0][0]==board[1][1] && board[1][1]==board[2][2] && board[0][0]!= Blank)
+  {
+    return board[0][0];
+  }
+
+  if(board[0][0]==board[0][1] && board[0][1]==board[0][2] && board[0][0]!= Blank)
+  {
+    return board[0][0];
+  }
+
+  if(board[0][0]==board[1][0] && board[1][0]==board[2][0] && board[0][0]!= Blank)
+  {
+    return board[0][0];
+  }
+  
+  if(board[0][2]==board[1][1] && board[1][1]==board[2][0] && board[0][2]!= Blank)
+  {
+    return board[0][2];
+  }
+
+  if(board[0][1]==board[1][1] && board[1][1]==board[2][1] && board[0][1]!= Blank)
+  {
+    return board[0][1];
+  }
+
+  if(board[1][0]==board[1][1] && board[1][1]==board[1][2] && board[1][0]!= Blank)
+  {
+    return board[1][0];
+  }
+
+  for(int i=0; i<BOARDSIZE; i++)
+  {
+    for(int j=0; j<BOARDSIZE; j++)
+    {
+      if(board[i][j] == Blank)
+      {
+        return Invalid;
+      }
+    }
+  }
   return Invalid;
 }
